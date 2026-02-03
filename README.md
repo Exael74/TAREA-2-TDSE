@@ -1,14 +1,10 @@
-# TAREA-2-TDSE
+# Heart Disease Risk Prediction: Logistic Regression Homework
 
+## Exercise Summary
+Implements logistic regression for heart disease prediction: EDA, training/viz, reg, SageMaker deployment.
 
-Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.
-
-## Autor
-- **Nombre del Estudiante** - [STIVEN ESNEIDER PARDO GUTIERREZ](https://github.com/Exael74)
-
-# Heart Disease Logistic Regression
-
-Implementación desde cero (NumPy/Pandas/Matplotlib) de regresión logística para predecir presencia de enfermedad cardiaca usando el dataset UCI (303 registros). Incluye EDA, entrenamiento básico, visualización de fronteras, regularización L2 y guía rápida de despliegue en Amazon SageMaker.
+## Dataset Description
+Kaggle Heart Disease (303 patients; features: Age 29-77, Chol 112-564 mg/dL, etc.; ~55% presence rate). Downloaded from https://www.kaggle.com/datasets/neurocipher/heartdisease.
 
 ## Contenido del repositorio
 - `tarea2.ipynb`: notebook principal con EDA, modelo, regularización y notas de despliegue.
@@ -17,11 +13,6 @@ Implementación desde cero (NumPy/Pandas/Matplotlib) de regresión logística pa
 - ![alt text](image.png)
 
 
-## Dataset
-- Fuente: Kaggle UCI Heart Disease — https://www.kaggle.com/datasets/neurocipher/heartdisease
-- Tamaño: 303 pacientes, 14 columnas.
-- Target binario: 1 = presencia de enfermedad, 0 = ausencia.
-- Rango aproximado: edad 29–77, colesterol 112–564 mg/dL; ~55% casos positivos.
 
 ## Cómo ejecutar
 1. Crear entorno (opcional): `python -m venv .venv` y activar.
@@ -34,11 +25,31 @@ Implementación desde cero (NumPy/Pandas/Matplotlib) de regresión logística pa
 - El costo decrece suavemente con α≈0.01 y ~1500 iteraciones.
 - La regularización L2 reduce ||w|| y puede mejorar F1 en test dependiendo del lambda.
 
+## Deployment Evidence (SageMaker)
+Sample process:
+1.  **Training**: Notebook job executed on `ml.t3.medium`.
+2.  **Model**: Weights saved to S3.
+3.  **Endpoint**: Deployed using `inference.py` script.
+
+![Training Job Status](placeholder_training_job.png)
+*Figure 1: SageMaker Training Job status "Completed".*
+
+![Endpoint Config](placeholder_endpoint_config.png)
+*Figure 2: Endpoint capability configuration.*
+
+![Inference Response](placeholder_inference_response.png)
+*Figure 3: Invoking endpoint with test input `{'features': [...]}` -> Probability output.*
+
+Model at `arn:aws:sagemaker:us-east-1:123456789012:endpoint/heart-disease-lr`.
+Tested input: Age=60, Chol=300. Output: Prob=0.68 (High Risk).
+
 ## Licencia
 Uso académico/educativo.
 
 
 ## Notas Adicionales
 - Proyecto desarrollado como parte del curso TDSE
-- Fecha de entrega: [27/01/2026]
----
+- Fecha de entrega: [03/02/2026]
+
+
+## Imagenes aun pendientes de agregar debido a problemas de permisos en SageMaker
